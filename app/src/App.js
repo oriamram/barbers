@@ -1,14 +1,27 @@
 import React from "react";
-import RegForm from "./components/auths/RegForm";
-import { Grid } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
+import { Paper } from "@mui/material";
+import { RequireAuth } from "react-auth-kit";
+import RegForm from "./components/auths/register/RegForm";
+import LoginForm from "./components/auths/login/LoginForm";
+import Profile from "./components/pages/profile/Profile";
 
 function App() {
 	return (
-		<Grid className="App" bgcolor={"secondary.main"} container alignItems={"center"} justifyContent={"center"} sx={{ height: "100%" }}>
-			<Grid item mobile={11} lmobile={10} tablet={10} ltablet={8} laptop={6} pc={4}>
-				<RegForm />
-			</Grid>
-		</Grid>
+		<Paper sx={{ width: "100%", height: "100%", bgcolor: "secondary.main" }}>
+			<Routes>
+				<Route
+					path="/profile"
+					element={
+						<RequireAuth loginPath="/login">
+							<Profile />
+						</RequireAuth>
+					}
+				/>
+				<Route path="/register" element={<RegForm />} />
+				<Route path="/login" element={<LoginForm />} />
+			</Routes>
+		</Paper>
 	);
 }
 
