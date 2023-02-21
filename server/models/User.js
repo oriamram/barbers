@@ -27,6 +27,10 @@ const UserScheme = new mongoose.Schema(
 			max: 11,
 			unique: true,
 		},
+		gender: {
+			type: String,
+			required: true,
+		},
 	},
 	{ timestamps: true }
 );

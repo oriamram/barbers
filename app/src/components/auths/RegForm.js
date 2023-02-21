@@ -3,6 +3,7 @@ import { Box, Paper, TextField, Grid, FormLabel, FormControlLabel, Radio, RadioG
 import { styled } from "@mui/material/styles";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import axios from "axios";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
 	width: "100%",
@@ -17,29 +18,38 @@ const RegForm = () => {
 			email: "",
 			gender: "female",
 		},
-		onSubmit: (values) => {
+		onSubmit: async (values) => {
+			// const res = await axios.post("/auth/register", values, { headers: { Authorization: "aaa" } });
 			console.log(values);
 		},
 	});
 
 	return (
-		<Box sx={{ width: "100%", height: { mobile: "80vh", laptop: "50vh" } }}>
+		<Box sx={{ width: "100%", height: { mobile: "90vh", laptop: "50vh" }, minHeight: { mobile: "380px", laptop: "320px" }, maxHeight: { mobile: "500px" } }}>
 			<Paper sx={{ width: "100%", height: "100%", bgcolor: "secondary.main", p: 2 }} elevation={5}>
 				<form onSubmit={formik.handleSubmit} style={{ height: "100%" }}>
-					<Grid container height={"100%"} direction={"column"}>
-						<Grid item container spacing={1} mobile={8} alignItems={"start"} justifyContent={"start"}>
-							<Grid item mobile={12} laptop={6}>
-								<StyledInput id="fullName" name="fullName" label="Full Name" value={formik.values.fullName} onChange={formik.handleChange} />
+					<Grid container height={"100%"} direction={"column"} display={"felx"} justifyContent={"space-between"}>
+						<Grid item container spacing={2} mobile={5}>
+							<Grid item mobile={12} ltablet={6} laptop={6}>
+								<StyledInput id="fullName" name="fullName" label="Full Name" value={formik.values.fullName} onChange={formik.handleChange} size="small" />
 							</Grid>
-							<Grid item mobile={12} laptop={6}>
-								<StyledInput id="phone" name="phone" label="Phone Number" value={formik.values.phone} onChange={formik.handleChange} />
+							<Grid item mobile={12} ltablet={6} laptop={6}>
+								<StyledInput id="phone" name="phone" label="Phone Number" value={formik.values.phone} onChange={formik.handleChange} size="small" />
 							</Grid>
 
 							<Grid item mobile={12}>
-								<StyledInput id="email" name="email" label="E-mail" value={formik.values.email} onChange={formik.handleChange} />
+								<StyledInput type="email" id="email" name="email" label="E-mail" value={formik.values.email} onChange={formik.handleChange} size="small" />
 							</Grid>
 							<Grid item mobile={12}>
-								<StyledInput id="password" name="password" label="Password" value={formik.values.password} onChange={formik.handleChange} />
+								<StyledInput
+									type="password"
+									id="password"
+									name="password"
+									label="Password"
+									value={formik.values.password}
+									onChange={formik.handleChange}
+									size="small"
+								/>
 							</Grid>
 							<Grid item mobile={12}>
 								<FormControl>
@@ -51,7 +61,7 @@ const RegForm = () => {
 								</FormControl>
 							</Grid>
 						</Grid>
-						<Grid item mobile={4} sx={{ display: "flex", alignItems: "end", justifyContent: "center" }}>
+						<Grid item mobile={2} sx={{ display: "flex", alignItems: "end", justifyContent: "center" }}>
 							<Button type="submit" variant="contained" size="large" sx={{ width: "50%" }}>
 								send
 							</Button>

@@ -6,7 +6,8 @@ import User from "../models/User.js";
 
 export const register = async (req, res) => {
 	try {
-		const { fullName, email, password, phone } = req.body;
+		// console.log(req.header("Authorization"));
+		const { fullName, email, password, phone, gender } = req.body;
 		const salt = await bcrypt.genSalt();
 		const passwordHash = await bcrypt.hash(password, salt);
 		const newUser = new User({
@@ -14,9 +15,11 @@ export const register = async (req, res) => {
 			email,
 			password: passwordHash,
 			phone,
+			gender,
 		});
 		const savedUser = await newUser.save();
 		res.status(201).json(savedUser);
+		// .cookie("aaaa")
 	} catch (e) {
 		res.status(500).json({ error: e.message });
 	}
@@ -34,6 +37,7 @@ export const login = async (req, res) => {
 		if (!isMatch) return res.status(400).json({ msg: "Wrong password" });
 
 		const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+		user.password = undefined;
 		res.status(200).json({ token, user });
 	} catch (e) {
 		res.status(500).json({ error: e.message });
