@@ -2,9 +2,12 @@ import React from "react";
 import { Box, Paper, TextField, Grid, FormLabel, FormControlLabel, Radio, RadioGroup, FormControl, Typography, Button } from "@mui/material";
 import InputMask from "react-input-mask";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
+import loginAuth from "../../../funcs/loginAuth";
+import { useSignIn } from "react-auth-kit";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
 	width: "100%",
@@ -29,6 +32,9 @@ const validationSchema = yup.object({
 	email: yup.string().email().required(),
 });
 const RegForm = () => {
+	const signIn = useSignIn();
+	const navigate = useNavigate();
+
 	const formik = useFormik({
 		initialValues: {
 			fullName: "",
@@ -40,7 +46,8 @@ const RegForm = () => {
 		onSubmit: async (values) => {
 			try {
 				const res = await axios.post("/auth/register", values);
-				console.log(res.data);
+				await loginAuth(values, signIn);
+				navigate("/profile");
 			} catch (e) {
 				alert("Phone number or email already exists");
 			}

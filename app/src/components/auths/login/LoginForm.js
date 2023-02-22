@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { useSignIn } from "react-auth-kit";
 import InputMask from "react-input-mask";
 import * as yup from "yup";
-import loginAuth from "../loginAuth";
+import loginAuth from "../../../funcs/loginAuth.js";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
 	width: "100%",
@@ -29,6 +29,8 @@ const validationSchema = yup.object({
 	password: yup.string().required("provide password"),
 });
 
+/* COMPONENT */
+
 const LoginForm = () => {
 	const navigate = useNavigate();
 	const signIn = useSignIn();
@@ -43,7 +45,7 @@ const LoginForm = () => {
 				await loginAuth(values, signIn);
 				navigate("/profile");
 			} catch (e) {
-				alert("e");
+				alert("Credentials are not exists");
 			}
 		},
 		validationSchema: validationSchema,
@@ -66,16 +68,6 @@ const LoginForm = () => {
 								<StyledTypography variant="h3">Login</StyledTypography>
 							</Grid>
 							<Grid item mobile={12}>
-								{/* <StyledInput
-									id="phone"
-									name="phone"
-									label="Phone"
-									value={formik.values.phone}
-									onChange={formik.handleChange}
-									size="large"
-									error={formik.touched.phone && Boolean(formik.errors.phone)}
-									helperText={formik.touched.phone && formik.errors.phone}
-								/> */}
 								<InputMask mask="(999) 999-9999" maskChar="_" value={formik.values.phone} onChange={formik.handleChange}>
 									{() => (
 										<StyledInput

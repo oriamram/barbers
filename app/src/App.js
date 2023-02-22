@@ -8,16 +8,17 @@ import Profile from "./components/pages/profile/Profile";
 
 function App() {
 	return (
-		<Paper sx={{ width: "100%", height: "100%", bgcolor: "secondary.main" }}>
+		<Paper className="App" sx={{ width: "100%", bgcolor: "secondary.main" }}>
 			<Routes>
 				<Route
-					path="/profile"
+					path={"/profile"}
 					element={
-						<RequireAuth loginPath="/login">
+						<RequireAuth loginPath={"/login"}>
 							<Profile />
 						</RequireAuth>
 					}
 				/>
+
 				<Route path="/register" element={<RegForm />} />
 				<Route path="/login" element={<LoginForm />} />
 			</Routes>
