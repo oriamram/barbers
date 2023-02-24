@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import BusinessCard from "../../businessCard/BusinessCard";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import FilterType from "./FilterType";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import WcIcon from "@mui/icons-material/Wc";
 import { Collapse, Divider, IconButton, List } from "@mui/material";
 
 const Menu = () => {
@@ -26,14 +28,18 @@ const Menu = () => {
 				component="nav"
 			>
 				<IconButton onClick={handelFilter}>
-					<SearchOutlinedIcon fontSize="large" />
+					<MenuBookRoundedIcon fontSize="large" />
 				</IconButton>
 				<Divider />
-				<Collapse in={showFilter} sx={{ pr: 0 }} timeout="auto" unmountOnExit>
-					<FilterType filterName="ערים" />
+				<Collapse in={showFilter} sx={{ pr: 0, width: "100%" }} timeout="auto" unmountOnExit>
+					<FilterType filterName="ערים" options={["הוד השרון", "רעננה", "כפר סבא"]}>
+						<LocationCityIcon />
+					</FilterType>
+					<FilterType filterName="סוג מספרה" options={["גברים", "נשים"]}>
+						<WcIcon />
+					</FilterType>
 				</Collapse>
 			</List>
-
 			<BusinessCard />
 		</>
 	);
