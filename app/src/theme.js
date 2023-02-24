@@ -43,7 +43,7 @@ const theme = createTheme({
 		},
 	},
 	typography: {
-		fontFamily: "roboto",
+		fontFamily: "Varela Round",
 	},
 	spacing: 8,
 	breakpoints: {
