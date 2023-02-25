@@ -15,6 +15,7 @@ export const register = async (req, res) => {
 			password: passwordHash,
 			phone,
 			gender,
+			favorites: [],
 		});
 		const savedUser = await newUser.save();
 		savedUser.password = undefined;

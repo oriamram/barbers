@@ -7,10 +7,11 @@ export default async (values, signIn) => {
 		token: res.data.token,
 		expiresIn: 3600,
 		authState: {
-			phone: values.phone,
-			email: res.data.user.email,
-			gender: res.data.user.gender,
 			fullName: res.data.user.fullName,
+			email: res.data.user.email,
+			phone: values.phone,
+			gender: res.data.user.gender,
+			favorites: res.data.user.favorites,
 		},
 	});
 };

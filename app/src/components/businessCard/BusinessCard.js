@@ -1,12 +1,23 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardMedia, Typography, Rating, CardActions, Collapse } from "@mui/material";
+import axios from "axios";
+import { Card, CardContent, CardMedia, Typography, Rating, CardActions, Collapse, IconButton } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { getAuthStateCookie } from "../../funcs/getAuthCookies";
+import { post } from "../../funcs/authorizedRequests";
 
-const BusinessCard = () => {
+const BusinessCard = ({ isFavorited }) => {
+	const userPhone = getAuthStateCookie().phone;
+
 	const [cardData, setCardData] = useState({
 		name: "משה עיצוב שיער",
 		city: "הוד השרון",
 		rating: 3,
 	});
+
+	const addFavorite = async () => {
+		await post("/user/favorite", { shopName: cardData.name, phone: userPhone });
+	};
 
 	return (
 		<Card sx={{ width: "230px", m: 5 }} elevation={5}>
@@ -23,8 +34,9 @@ const BusinessCard = () => {
 					{cardData.city}
 				</Typography>
 			</CardContent>
-			<CardActions>
+			<CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
 				<Rating readOnly size="medium" value={cardData.rating} />
+				<IconButton onClick={addFavorite}>{isFavorited ? <FavoriteIcon /> : <FavoriteBorderIcon />}</IconButton>
 			</CardActions>
 		</Card>
 	);
