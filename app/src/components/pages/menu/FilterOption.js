@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Checkbox, ListItemButton, ListItemText } from "@mui/material";
 import { HandleSelectedOptionContext } from "./FilterType";
 
+/* Filter option inside a filter type */
+
 const FilterOption = ({ optionName }) => {
 	const [isChecked, setIsChecked] = useState(false);
 	const onClick = useContext(HandleSelectedOptionContext);

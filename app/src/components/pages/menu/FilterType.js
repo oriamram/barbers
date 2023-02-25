@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { CardContent, Collapse, IconButton, List, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
-import LocationCityIcon from "@mui/icons-material/LocationCity";
+import { Collapse, IconButton, List, ListItemButton, ListItemIcon, ListItemText, styled } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import FilterOption from "./FilterOption";
 
+//expend more btn
 const ExpandMore = styled((props) => {
 	const { expand, ...other } = props;
 	return <IconButton {...other} />;
@@ -18,18 +18,17 @@ const ExpandMore = styled((props) => {
 
 export const HandleSelectedOptionContext = React.createContext(null);
 
-/* COMPONENT */
+/* Filter type inside the menu */
 
 const FilterType = ({ filterName, options, children }) => {
 	const [expended, setExpended] = useState(false);
 	const [selectedOptions, setSelectedOptions] = useState([]);
 
-	const width = `${100 + filterName * 2}px`;
-
 	const handleClick = () => {
 		setExpended(!expended);
 	};
 
+	// Add / Remove an option from the selected options array
 	const handleSelectedOption = (value) => {
 		if (!selectedOptions.includes(value)) {
 			setSelectedOptions([...selectedOptions, value]);
@@ -38,6 +37,7 @@ const FilterType = ({ filterName, options, children }) => {
 			setSelectedOptions(newSelectedOptions);
 		}
 	};
+
 	return (
 		<HandleSelectedOptionContext.Provider value={handleSelectedOption}>
 			<ListItemButton onClick={handleClick} sx={{ width: "100%" }}>

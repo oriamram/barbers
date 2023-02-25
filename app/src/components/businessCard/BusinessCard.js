@@ -6,6 +6,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { getAuthStateCookie } from "../../funcs/getAuthCookies";
 import { post } from "../../funcs/authorizedRequests";
 
+/* Business card */
+
 const BusinessCard = ({ isFavorited }) => {
 	const userPhone = getAuthStateCookie().phone;
 

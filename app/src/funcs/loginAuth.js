@@ -1,5 +1,6 @@
-import { useSignIn } from "react-auth-kit";
 import axios from "axios";
+
+/* login func that loads the cookies to the client*/
 
 export default async (values, signIn) => {
 	const res = await axios.post("/auth/login", values);

@@ -1,6 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { Paper } from "@mui/material";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { RequireAuth } from "react-auth-kit";
 import RegForm from "./components/auths/register/RegForm";
 import LoginForm from "./components/auths/login/LoginForm";
@@ -21,6 +20,7 @@ function App() {
 			<Route path="/menu" element={<Menu />} />
 			<Route path="/register" element={<RegForm />} />
 			<Route path="/login" element={<LoginForm />} />
+			<Route path="*" element={<Navigate to="/profile" />} />
 		</Routes>
 	);
 }

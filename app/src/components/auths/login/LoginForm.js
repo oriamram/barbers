@@ -21,6 +21,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 	},
 }));
 
+//yup scheme
 const validationSchema = yup.object({
 	phone: yup
 		.string()
@@ -29,12 +30,13 @@ const validationSchema = yup.object({
 	password: yup.string().required("provide password"),
 });
 
-/* COMPONENT */
+/* Login form */
 
 const LoginForm = () => {
 	const navigate = useNavigate();
 	const signIn = useSignIn();
 
+	//validations and handlers by formik
 	const formik = useFormik({
 		initialValues: {
 			phone: "",

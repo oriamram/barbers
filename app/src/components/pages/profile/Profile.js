@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Grid, CircularProgress, Typography, styled, Box } from "@mui/material";
+import { Avatar, Grid, CircularProgress, Typography, styled } from "@mui/material";
 import { getAuthStateCookie } from "../../../funcs/getAuthCookies.js";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
@@ -13,11 +13,15 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 	},
 }));
 
+/* Profile page */
+
 const Profile = () => {
 	const [userData, setUserData] = useState(null);
 
+	//set user data from cookies
 	useEffect(() => {
 		let authStateCookie = getAuthStateCookie();
+		//if no user data, wait untill it loads
 		if (!authStateCookie) {
 			const getCookies = setInterval(() => {
 				authStateCookie = getAuthStateCookie();

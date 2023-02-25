@@ -4,9 +4,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import { useNavigate } from "react-router-dom";
 
+/* Nav bar */
+
 const NavBar = () => {
 	const [selectedSection, setSelectedSection] = useState(0);
 	const navigate = useNavigate();
+
 	return (
 		<AppBar position="fixed" sx={{ top: "auto", bottom: 0, bgcolor: "primary.light" }}>
 			<Toolbar variant="fullWidth">

@@ -1,15 +1,6 @@
 import User from "../models/User.js";
 
-export const getUser = async (req, res) => {
-	try {
-		const { id } = req.params;
-		const user = await User.findById(id);
-		res.status(200).json(user);
-	} catch (e) {
-		res.status(500).json({ error: e.message });
-	}
-};
-
+// Add / Remove favorite from a user
 export const updateFavorites = async (req, res) => {
 	try {
 		const shopName = req.body.shopName;

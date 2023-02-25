@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-/* REGISTER */
+/* Add user to db */
 
 export const register = async (req, res) => {
 	try {
@@ -25,7 +25,7 @@ export const register = async (req, res) => {
 	}
 };
 
-/* LOGGING IN */
+/* Check for user in db and return a token to client */
 
 export const login = async (req, res) => {
 	try {

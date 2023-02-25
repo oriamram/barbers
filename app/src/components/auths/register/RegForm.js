@@ -22,6 +22,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 	},
 }));
 
+//yup scheme
 const validationSchema = yup.object({
 	fullName: yup.string().required("full name is a required field"),
 	password: yup.string().min(6).required(),
@@ -31,10 +32,14 @@ const validationSchema = yup.object({
 		.required("Phone number is required"),
 	email: yup.string().email().required(),
 });
+
+/* Register form */
+
 const RegForm = () => {
 	const signIn = useSignIn();
 	const navigate = useNavigate();
 
+	//validations and handlers by formik
 	const formik = useFormik({
 		initialValues: {
 			fullName: "",
