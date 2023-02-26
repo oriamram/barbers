@@ -7,7 +7,7 @@ import { userDataContext } from "../../../App";
 /* Menu page component */
 
 const Menu = ({ businesses, setBusinesses }) => {
-	const userData = useContext(userDataContext);
+	const [userData] = useContext(userDataContext);
 
 	useEffect(() => {
 		(async () => {

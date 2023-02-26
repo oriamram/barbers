@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Card, CardContent, CardMedia, Typography, Rating, CardActions, Collapse, IconButton } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Rating, CardActions, IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { post } from "../../funcs/authorizedRequests";
 import { userDataContext } from "../../App";
+
 /* Business card */
 
 const BusinessCard = ({ isFavorited, data }) => {
-	const userData = useContext(userDataContext);
+	const [userData, setUserData] = useContext(userDataContext);
 	const userPhone = userData?.phone;
 	const [isFav, setIsFav] = useState(isFavorited);
-
 	const [cardData, setCardData] = useState({
 		name: data.name,
 		city: data.city,
@@ -18,10 +18,15 @@ const BusinessCard = ({ isFavorited, data }) => {
 		image: data.image,
 	});
 
-	const addFavorite = async () => {
+	useEffect(() => {
+		setIsFav(isFavorited);
+	}, [isFavorited]);
+
+	const updateFavorites = async () => {
 		try {
-			const res = await post("/user/favorite", { shopName: cardData.name, phone: userPhone });
-			setIsFav(res.data.isFavorite);
+			const res = (await post("/user/favorite", { shopName: cardData.name, phone: userPhone })).data;
+			setIsFav(res.isFavorite);
+			setUserData({ ...userData, favorites: res.favorites });
 		} catch (e) {
 			alert("You should login before being able to add to favorites");
 		}
@@ -40,7 +45,7 @@ const BusinessCard = ({ isFavorited, data }) => {
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
 				<Rating readOnly size="medium" value={cardData.rating} />
-				<IconButton onClick={addFavorite}>{isFav ? <FavoriteIcon sx={{ color: "error.light" }} /> : <FavoriteBorderIcon />}</IconButton>
+				<IconButton onClick={updateFavorites}>{isFav ? <FavoriteIcon sx={{ color: "error.light" }} /> : <FavoriteBorderIcon />}</IconButton>
 			</CardActions>
 		</Card>
 	);

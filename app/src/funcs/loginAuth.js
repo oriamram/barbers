@@ -4,7 +4,6 @@ import axios from "axios";
 
 export default async (values, signIn) => {
 	const res = await axios.post("/auth/login", values);
-	console.log(res);
 	await signIn({
 		token: res.data.token,
 		expiresIn: 3600,
@@ -13,7 +12,7 @@ export default async (values, signIn) => {
 			email: res.data.user.email,
 			phone: values.phone,
 			gender: res.data.user.gender,
-			favorites: res.data.user.favorites,
 		},
 	});
+	return res.data.user;
 };

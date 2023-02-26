@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Avatar, Grid, CircularProgress, Typography, styled } from "@mui/material";
-import { getAuthStateCookie } from "../../../funcs/getAuthCookies.js";
 import { userDataContext } from "../../../App.js";
+import { get } from "../../../funcs/authorizedRequests.js";
+import { getAuthStateCookie } from "../../../funcs/getAuthCookies.js";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
 	[theme.breakpoints.up("mobile")]: {
@@ -17,7 +18,26 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 /* Profile page */
 
 const Profile = () => {
-	const userData = useContext(userDataContext);
+	const [userData, setUserData] = useContext(userDataContext);
+
+	useEffect(() => {
+		let tempUserData = getAuthStateCookie();
+		if (!tempUserData) {
+			(async () => {
+				if (!tempUserData) {
+					const intervalId = setInterval(async () => {
+						tempUserData = getAuthStateCookie();
+						if (tempUserData) {
+							const res = await get(`/user/${tempUserData?.phone}`);
+							setUserData(res.user);
+							clearInterval(intervalId);
+						}
+					}, 1000);
+				}
+			})();
+		}
+	}, []);
+
 	return (
 		<>
 			{userData ? (
