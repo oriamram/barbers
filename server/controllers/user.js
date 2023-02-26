@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 
-// Add / Remove favorite from a user
+// Add - Remove favorite from a user
 export const updateFavorites = async (req, res) => {
 	try {
 		const shopName = req.body.shopName;
@@ -12,6 +12,6 @@ export const updateFavorites = async (req, res) => {
 			await User.updateOne({ phone }, { $pull: { favorites: shopName } });
 		}
 	} catch (e) {
-		console.log("no shop id");
+		console.log(e.message);
 	}
 };

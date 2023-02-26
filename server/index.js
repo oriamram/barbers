@@ -4,10 +4,10 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import morgan from "morgan";
-import path from "path";
 import helmet from "helmet";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
+import shopRouter from "./routes/shop.js";
 
 dotenv.config();
 
@@ -24,6 +24,7 @@ app.use(cors());
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
+app.use("/shop", shopRouter);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 4000;

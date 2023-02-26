@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FilterBar from "./FilterBar";
 import BusinessCard from "../../businessCard/BusinessCard";
 
-const Menu = () => {
+/* Menu page component */
+
+const Menu = ({ businesses, setBusinesses }) => {
+	useEffect(() => {
+		(async () => {
+			await setBusinesses();
+		})();
+	}, []);
+
 	return (
 		<>
 			<FilterBar />
-			<BusinessCard />
+			{businesses?.map((business, index) => (
+				<BusinessCard data={business} key={index} isFavorited={true} />
+			))}
 		</>
 	);
 };
