@@ -8,7 +8,8 @@ import { userDataContext } from "../../App";
 
 const BusinessCard = ({ isFavorited, data }) => {
 	const userData = useContext(userDataContext);
-	const userPhone = userData.phone;
+	const userPhone = userData?.phone;
+	const [isFav, setIsFav] = useState(isFavorited);
 
 	const [cardData, setCardData] = useState({
 		name: data.name,
@@ -18,11 +19,16 @@ const BusinessCard = ({ isFavorited, data }) => {
 	});
 
 	const addFavorite = async () => {
-		await post("/user/favorite", { shopName: cardData.name, phone: userPhone });
+		try {
+			const res = await post("/user/favorite", { shopName: cardData.name, phone: userPhone });
+			setIsFav(res.data.isFavorite);
+		} catch (e) {
+			alert("You should login before being able to add to favorites");
+		}
 	};
 
 	return (
-		<Card sx={{ width: "230px", m: 5 }} elevation={5}>
+		<Card sx={{ width: "230px" }} elevation={5}>
 			<CardMedia sx={{ height: 120 }} image={cardData.image} title="shop Pic" />
 			<CardContent>
 				<Typography variant="h3" sx={{ color: "primary.dark", fontSize: "1.2rem", textAlign: "end" }}>
@@ -34,7 +40,7 @@ const BusinessCard = ({ isFavorited, data }) => {
 			</CardContent>
 			<CardActions sx={{ display: "flex", justifyContent: "space-between" }}>
 				<Rating readOnly size="medium" value={cardData.rating} />
-				<IconButton onClick={addFavorite}>{isFavorited ? <FavoriteIcon sx={{ color: "error.light" }} /> : <FavoriteBorderIcon />}</IconButton>
+				<IconButton onClick={addFavorite}>{isFav ? <FavoriteIcon sx={{ color: "error.light" }} /> : <FavoriteBorderIcon />}</IconButton>
 			</CardActions>
 		</Card>
 	);

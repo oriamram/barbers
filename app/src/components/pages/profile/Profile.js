@@ -18,7 +18,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 const Profile = () => {
 	const userData = useContext(userDataContext);
-
 	return (
 		<>
 			{userData ? (

@@ -13,14 +13,25 @@ export const userDataContext = React.createContext();
 function App() {
 	const [businesses, setBusinesses] = useState([]);
 	const [userData, setUserData] = useState();
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const setAllBusinessCards = async () => {
 		if (!(businesses.length > 0)) setBusinesses((await getAllBusinessCards()).data);
 	};
 
 	useEffect(() => {
-		setUserData(getAuthStateCookie());
-	}, []);
+		if (isLoggedIn) {
+			const intervalId = setInterval(() => {
+				const userAuthState = getAuthStateCookie();
+				if (userAuthState) {
+					setUserData(userAuthState);
+					clearInterval(intervalId);
+				}
+			}, 1000);
+		} else {
+			setUserData(getAuthStateCookie());
+		}
+	}, [isLoggedIn]);
 
 	return (
 		<userDataContext.Provider value={userData}>
@@ -35,7 +46,7 @@ function App() {
 				/>
 				<Route path="/menu" element={<Menu businesses={businesses} setBusinesses={setAllBusinessCards} />} />
 				<Route path="/register" element={<RegForm />} />
-				<Route path="/login" element={<LoginForm />} />
+				<Route path="/login" element={<LoginForm setIsLoggedIn={setIsLoggedIn} />} />
 				<Route path="*" element={<Navigate to="/profile" />} />
 			</Routes>
 		</userDataContext.Provider>

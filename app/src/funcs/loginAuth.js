@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default async (values, signIn) => {
 	const res = await axios.post("/auth/login", values);
+	console.log(res);
 	await signIn({
 		token: res.data.token,
 		expiresIn: 3600,

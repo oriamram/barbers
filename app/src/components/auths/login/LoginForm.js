@@ -32,7 +32,7 @@ const validationSchema = yup.object({
 
 /* Login form */
 
-const LoginForm = () => {
+const LoginForm = ({ setIsLoggedIn }) => {
 	const navigate = useNavigate();
 	const signIn = useSignIn();
 
@@ -45,6 +45,7 @@ const LoginForm = () => {
 		onSubmit: async (values) => {
 			try {
 				await loginAuth(values, signIn);
+				setIsLoggedIn(true);
 				navigate("/profile");
 			} catch (e) {
 				alert("Credentials are not exists");

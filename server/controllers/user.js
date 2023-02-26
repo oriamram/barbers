@@ -8,10 +8,12 @@ export const updateFavorites = async (req, res) => {
 		const user = await User.findOne({ phone });
 		if (!user.favorites.includes(shopName)) {
 			await User.updateOne({ phone }, { $push: { favorites: shopName } });
+			res.status(201).json({ message: "Added successfully", isFavorite: true });
 		} else {
 			await User.updateOne({ phone }, { $pull: { favorites: shopName } });
+			res.status(201).json({ message: "Removed successfully", isFavorite: false });
 		}
 	} catch (e) {
-		console.log(e.message);
+		res.status(500).json({ error: e.message });
 	}
 };
