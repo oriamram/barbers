@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 /* Shop model */
 
-const ShopScheme = new mongoose.Schema({
+const BusinessScheme = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -38,5 +38,5 @@ const ShopScheme = new mongoose.Schema({
 	},
 });
 
-const Shop = mongoose.model("Shop", ShopScheme);
-export default Shop;
+const Business = mongoose.model("Business", BusinessScheme);
+export default Business;

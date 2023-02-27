@@ -7,7 +7,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
-import shopRouter from "./routes/shop.js";
+import businessRouter from "./routes/business.js";
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ app.use(cors());
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
-app.use("/shop", shopRouter);
+app.use("/business", businessRouter);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 4000;

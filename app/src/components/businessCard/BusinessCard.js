@@ -24,7 +24,8 @@ const BusinessCard = ({ isFavorited, data }) => {
 
 	const updateFavorites = async () => {
 		try {
-			const res = (await post("/user/favorite", { shopName: cardData.name, phone: userPhone })).data;
+			const res = (await post("/user/favorite", { businessName: cardData.name, phone: userPhone })).data;
+
 			setIsFav(res.isFavorite);
 			setUserData({ ...userData, favorites: res.favorites });
 		} catch (e) {
@@ -34,7 +35,7 @@ const BusinessCard = ({ isFavorited, data }) => {
 
 	return (
 		<Card sx={{ width: "230px" }} elevation={5}>
-			<CardMedia sx={{ height: 120 }} image={cardData.image} title="shop Pic" />
+			<CardMedia sx={{ height: 120 }} image={cardData.image} title="business Pic" />
 			<CardContent>
 				<Typography variant="h3" sx={{ color: "primary.dark", fontSize: "1.2rem", textAlign: "end" }}>
 					{cardData.name}

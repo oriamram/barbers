@@ -3,19 +3,19 @@ import User from "../models/User.js";
 // Add - Remove favorite from a user
 export const updateFavorites = async (req, res) => {
 	try {
-		const shopName = req.body.shopName;
+		const businessName = req.body.businessName;
 		const phone = req.body.phone;
 		const user = await User.findOne({ phone });
 		let isFavorite = false;
 		let message = "Removed successfully";
-		if (!user.favorites.includes(shopName)) {
-			await User.updateOne({ phone }, { $push: { favorites: shopName } });
+		if (!user.favorites.includes(businessName)) {
+			await User.updateOne({ phone }, { $push: { favorites: businessName } });
 			isFavorite = true;
 			message = "Added successfully";
-			user.favorites.push(shopName);
+			user.favorites.push(businessName);
 		} else {
-			await User.updateOne({ phone }, { $pull: { favorites: shopName } });
-			user.favorites.splice(user.favorites.indexOf(shopName), 1);
+			await User.updateOne({ phone }, { $pull: { favorites: businessName } });
+			user.favorites.splice(user.favorites.indexOf(businessName), 1);
 		}
 		res.status(201).json({ message, isFavorite, favorites: user.favorites });
 	} catch (e) {

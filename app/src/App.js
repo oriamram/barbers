@@ -18,6 +18,7 @@ function App() {
 	const setAllBusinessCards = async () => {
 		if (!(businesses.length > 0)) setBusinesses((await getAllBusinessCards()).data);
 	};
+
 	useEffect(() => {
 		const tempUserData = getAuthStateCookie();
 		if (tempUserData) {

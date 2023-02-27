@@ -7,7 +7,6 @@ import { useSignIn } from "react-auth-kit";
 import InputMask from "react-input-mask";
 import * as yup from "yup";
 import loginAuth from "../../../funcs/loginAuth.js";
-import { userDataContext } from "../../../App.js";
 
 const StyledInput = styled(TextField)(({ theme }) => ({
 	width: "100%",
@@ -36,7 +35,6 @@ const validationSchema = yup.object({
 const LoginForm = () => {
 	const navigate = useNavigate();
 	const signIn = useSignIn();
-	const [userData, setUserData] = useContext(userDataContext);
 
 	//validations and handlers by formik
 	const formik = useFormik({
@@ -47,7 +45,6 @@ const LoginForm = () => {
 		onSubmit: async (values) => {
 			try {
 				await loginAuth(values, signIn);
-				// setUserData({ phone: values.phone });
 				navigate("/profile");
 			} catch (e) {
 				alert("Credentials are not exists");
