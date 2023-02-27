@@ -1,5 +1,6 @@
 import Business from "../models/Business.js";
 
+// creates new business in db
 export const newBusiness = async (req, res) => {
 	try {
 		const { name, genders, summary, image, rating, city, address, phone } = req.body;
@@ -20,10 +21,22 @@ export const newBusiness = async (req, res) => {
 	}
 };
 
+// return all the businesses
 export const allBusinesses = async (req, res) => {
 	try {
 		const businesses = await Business.find();
 		res.status(201).json(businesses);
+	} catch (e) {
+		res.status(500).json({ error: e.message });
+	}
+};
+
+// return all the businesses by input
+export const businessesByNames = async (req, res) => {
+	try {
+		const favorites = req.query.favorites;
+		const businesses = await Business.find({ name: { $in: favorites } });
+		res.status(201).send(businesses);
 	} catch (e) {
 		res.status(500).json({ error: e.message });
 	}

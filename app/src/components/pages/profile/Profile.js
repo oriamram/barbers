@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Avatar, Grid, CircularProgress, Typography, styled } from "@mui/material";
+import { Avatar, Grid, CircularProgress, Typography, styled, Box } from "@mui/material";
 import { userDataContext } from "../../../App.js";
 import { get } from "../../../funcs/authorizedRequests.js";
 import { getAuthStateCookie } from "../../../funcs/getAuthCookies.js";
+import axios from "axios";
+import BusinessCard from "../../businessCard/BusinessCard.js";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
 	[theme.breakpoints.up("mobile")]: {
@@ -19,6 +21,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 const Profile = () => {
 	const [userData, setUserData] = useContext(userDataContext);
+	const [favorites, setFavorites] = useState([]);
 
 	useEffect(() => {
 		let tempUserData = getAuthStateCookie();
@@ -38,15 +41,37 @@ const Profile = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (userData?.favorites) {
+			(async () => {
+				const favs = (
+					await axios.get("/business/byName", {
+						params: {
+							favorites: userData.favorites,
+						},
+					})
+				).data;
+				setFavorites(favs);
+			})();
+		}
+	}, [userData]);
+
 	return (
 		<>
 			{userData ? (
-				<Grid container direction={"column"} m={0} gap={2} sx={{ backgroundColor: "secondary.main", height: "100vh" }}>
+				<Grid container direction={"column"} m={0} gap={2} sx={{ backgroundColor: "secondary.main", height: "100vh", p: 2 }}>
 					<Grid item display={"flex"} justifyContent={"center"} mt={3}>
 						<Avatar sx={{ width: "100px", height: "100px", fontSize: "4rem" }}>{userData?.fullName.slice(0, 1).toUpperCase()}</Avatar>
 					</Grid>
 					<Grid item display={"flex"} justifyContent={"center"}>
 						<StyledTypography variant="h1">{userData?.fullName}</StyledTypography>
+					</Grid>
+					<Grid item display={"flex"} justifyContent={"center"}>
+						<Box mt={5} justifyContent={favorites.length === 1 ? "center" : "start"} sx={{ display: "flex", width: "260px", gap: 2, overflowX: "scroll" }}>
+							{favorites.map((favorite) => (
+								<BusinessCard data={favorite} key={favorite._id} isFavorited={true} />
+							))}
+						</Box>
 					</Grid>
 				</Grid>
 			) : (
