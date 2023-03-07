@@ -20,7 +20,7 @@ export const HandleSelectedOptionContext = React.createContext(null);
 
 /* Filter type inside the menu */
 
-const FilterType = ({ filterName, options, children }) => {
+const FilterType = ({ filterName, options, children, type }) => {
 	const [expended, setExpended] = useState(false);
 	const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -50,7 +50,7 @@ const FilterType = ({ filterName, options, children }) => {
 			<Collapse in={expended} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding sx={{ display: "flex", flexDirection: "column", alignItems: "end", pr: 3 }}>
 					{options.map((option) => (
-						<FilterOption optionName={option} key={option} />
+						<FilterOption optionName={option} type={type} key={option} />
 					))}
 				</List>
 			</Collapse>

@@ -19,9 +19,8 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 
 /* Profile page */
 
-const Profile = () => {
+const Profile = ({ favorites }) => {
 	const [userData, setUserData] = useContext(userDataContext);
-	const [favorites, setFavorites] = useState([]);
 
 	useEffect(() => {
 		let tempUserData = getAuthStateCookie();
@@ -41,21 +40,6 @@ const Profile = () => {
 		}
 	}, []);
 
-	useEffect(() => {
-		if (userData?.favorites) {
-			(async () => {
-				const favs = (
-					await axios.get("/business/byName", {
-						params: {
-							favorites: userData.favorites,
-						},
-					})
-				).data;
-				setFavorites(favs);
-			})();
-		}
-	}, [userData]);
-
 	return (
 		<>
 			{userData ? (
@@ -67,7 +51,11 @@ const Profile = () => {
 						<StyledTypography variant="h1">{userData?.fullName}</StyledTypography>
 					</Grid>
 					<Grid item display={"flex"} justifyContent={"center"}>
-						<Box mt={5} justifyContent={favorites.length === 1 ? "center" : "start"} sx={{ display: "flex", width: "260px", gap: 2, overflowX: "scroll" }}>
+						<Box
+							mt={5}
+							justifyContent={favorites.length === 1 ? "center" : "start"}
+							sx={{ display: "flex", width: "260px", gap: 2, overflowX: "scroll", height: "300px" }}
+						>
 							{favorites.map((favorite) => (
 								<BusinessCard data={favorite} key={favorite._id} isFavorited={true} />
 							))}

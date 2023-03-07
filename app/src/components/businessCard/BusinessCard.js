@@ -34,7 +34,7 @@ const BusinessCard = ({ isFavorited, data }) => {
 	};
 
 	return (
-		<Card sx={{ width: "230px", minWidth: "230px" }} elevation={5}>
+		<Card sx={{ width: "230px", minWidth: "230px", maxHeight: "260px" }} elevation={5}>
 			<CardMedia sx={{ height: 120 }} image={cardData.image} title="business Pic" />
 			<CardContent>
 				<Typography variant="h3" sx={{ color: "primary.dark", fontSize: "1.2rem", textAlign: "end" }}>

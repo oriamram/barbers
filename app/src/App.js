@@ -8,12 +8,14 @@ import Menu from "./components/pages/menu/Menu";
 import { getAllBusinessCards } from "./funcs/getBusinessCardData";
 import { getAuthStateCookie } from "./funcs/getAuthCookies";
 import { get } from "./funcs/authorizedRequests";
+import axios from "axios";
 
 export const userDataContext = React.createContext();
 
 function App() {
 	const [businesses, setBusinesses] = useState([]);
 	const [userData, setUserData] = useState();
+	const [favorites, setFavorites] = useState([]);
 
 	const setAllBusinessCards = async () => {
 		if (!(businesses.length > 0)) setBusinesses((await getAllBusinessCards()).data);
@@ -29,6 +31,21 @@ function App() {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (userData?.favorites) {
+			(async () => {
+				const favs = (
+					await axios.get("/business/byName", {
+						params: {
+							favorites: userData.favorites,
+						},
+					})
+				).data;
+				setFavorites(favs);
+			})();
+		}
+	}, [userData]);
+
 	return (
 		<userDataContext.Provider value={[userData, setUserData]}>
 			<Routes>
@@ -36,7 +53,7 @@ function App() {
 					path={"/profile"}
 					element={
 						<RequireAuth loginPath={"/login"}>
-							<Profile />
+							<Profile favorites={favorites} />
 						</RequireAuth>
 					}
 				/>

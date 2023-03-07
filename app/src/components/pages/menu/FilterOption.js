@@ -1,16 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Checkbox, ListItemButton, ListItemText } from "@mui/material";
 import { HandleSelectedOptionContext } from "./FilterType";
+import { filtersContext } from "./Menu";
 
 /* Filter option inside a filter type */
 
-const FilterOption = ({ optionName }) => {
-	const [isChecked, setIsChecked] = useState(false);
+const FilterOption = ({ optionName, type }) => {
+	const [filters, setFilters] = useContext(filtersContext);
+	const [isChecked, setIsChecked] = useState(filters[type] ? filters[type].includes(optionName) : false);
 	const onClick = useContext(HandleSelectedOptionContext);
 
 	const clickHandler = () => {
 		onClick(optionName);
 		setIsChecked(!isChecked);
+		if (!isChecked) {
+			setFilters({ ...filters, [type]: filters[type] ? [...filters[type], optionName] : [optionName] });
+		} else {
+			const newFilters = [...filters[type]];
+			const indexToRemove = newFilters.indexOf(optionName);
+			newFilters.splice(indexToRemove, 1);
+			setFilters({ ...filters, [type]: newFilters });
+		}
 	};
 
 	return (

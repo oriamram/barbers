@@ -33,10 +33,10 @@ const FilterBar = () => {
 			</IconButton>
 			<Divider />
 			<Collapse in={showFilter} sx={{ pr: 0, width: "100%" }} timeout="auto" unmountOnExit>
-				<FilterType filterName="ערים" options={["הוד השרון", "רעננה", "כפר סבא"]}>
+				<FilterType filterName="ערים" options={["הוד השרון", "רעננה", "כפר סבא"]} type="city">
 					<LocationCityIcon />
 				</FilterType>
-				<FilterType filterName="סוג מספרה" options={["גברים", "נשים"]}>
+				<FilterType filterName="סוג מספרה" options={["גברים", "נשים"]} type="genders">
 					<WcIcon />
 				</FilterType>
 			</Collapse>
