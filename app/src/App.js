@@ -47,22 +47,28 @@ function App() {
 	}, [userData]);
 
 	return (
-		<userDataContext.Provider value={[userData, setUserData]}>
-			<Routes>
-				<Route
-					path={"/profile"}
-					element={
-						<RequireAuth loginPath={"/login"}>
-							<Profile favorites={favorites} />
-						</RequireAuth>
-					}
-				/>
-				<Route path="/menu" element={<Menu businesses={businesses} setBusinesses={setAllBusinessCards} />} />
-				<Route path="/register" element={<RegForm />} />
-				<Route path="/login" element={<LoginForm />} />
-				<Route path="*" element={<Navigate to="/profile" />} />
-			</Routes>
-		</userDataContext.Provider>
+		<>
+			{window.screen.width < 450 ? (
+				<userDataContext.Provider value={[userData, setUserData]}>
+					<Routes>
+						<Route
+							path={"/profile"}
+							element={
+								<RequireAuth loginPath={"/login"}>
+									<Profile favorites={favorites} />
+								</RequireAuth>
+							}
+						/>
+						<Route path="/menu" element={<Menu businesses={businesses} setBusinesses={setAllBusinessCards} />} />
+						<Route path="/register" element={<RegForm />} />
+						<Route path="/login" element={<LoginForm />} />
+						<Route path="*" element={<Navigate to="/profile" />} />
+					</Routes>
+				</userDataContext.Provider>
+			) : (
+				<h1>For now this website can be opened only from a smartphone</h1>
+			)}
+		</>
 	);
 }
 

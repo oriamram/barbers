@@ -3,7 +3,6 @@ import { Avatar, Grid, CircularProgress, Typography, styled, Box } from "@mui/ma
 import { userDataContext } from "../../../App.js";
 import { get } from "../../../funcs/authorizedRequests.js";
 import { getAuthStateCookie } from "../../../funcs/getAuthCookies.js";
-import axios from "axios";
 import BusinessCard from "../../businessCard/BusinessCard.js";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
@@ -39,7 +38,7 @@ const Profile = ({ favorites }) => {
 			})();
 		}
 	}, []);
-
+	console.log(favorites[0]);
 	return (
 		<>
 			{userData ? (
@@ -54,7 +53,19 @@ const Profile = ({ favorites }) => {
 						<Box
 							mt={5}
 							justifyContent={favorites.length === 1 ? "center" : "start"}
-							sx={{ display: "flex", width: "260px", gap: 2, overflowX: "scroll", height: "300px" }}
+							sx={{
+								display: "flex",
+								width: {
+									mobile: "240px",
+
+									lmobile: "300px",
+								},
+
+								gap: 2,
+								overflowX: "scroll",
+								height: "300px",
+							}}
+							p={1}
 						>
 							{favorites.map((favorite) => (
 								<BusinessCard data={favorite} key={favorite._id} isFavorited={true} />

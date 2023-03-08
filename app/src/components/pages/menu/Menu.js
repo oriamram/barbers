@@ -48,7 +48,7 @@ const Menu = ({ businesses, setBusinesses }) => {
 	return (
 		<filtersContext.Provider value={[filters, setFilters]}>
 			<FilterBar />
-			<Grid container direction={"column"} gap={4} display={"flex"} alignItems={"center"} pt={4}>
+			<Grid container direction={"column"} gap={4} display={"flex"} alignItems={"center"} pt={4} bgcolor="secondary.light" minHeight="100vh">
 				{renderByFilter()}
 			</Grid>
 		</filtersContext.Provider>
