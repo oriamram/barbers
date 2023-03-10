@@ -12,6 +12,8 @@ import axios from "axios";
 
 export const userDataContext = React.createContext();
 
+axios.defaults.baseURL = "https://jimny-server.onrender.com";
+
 function App() {
 	const [businesses, setBusinesses] = useState([]);
 	const [userData, setUserData] = useState();
