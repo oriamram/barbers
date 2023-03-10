@@ -26,6 +26,10 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/business", businessRouter);
 
+app.get("/", (req, res) => {
+	res.status(200).send("server is up");
+});
+
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 4000;
 mongoose
