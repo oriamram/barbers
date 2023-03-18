@@ -2,7 +2,6 @@
 	"name": "app",
 	"version": "0.1.0",
 	"private": true,
-	"proxy": "https://jimny-server.onrender.com",
 	"dependencies": {
 		"@emotion/react": "^11.10.6",
 		"@emotion/styled": "^11.10.6",
@@ -16,6 +15,7 @@
 		"react": "^18.2.0",
 		"react-auth-kit": "^2.7.1",
 		"react-dom": "^18.2.0",
+		"react-infinite-scroll-component": "^6.1.0",
 		"react-input-mask": "^2.0.4",
 		"react-router-dom": "^6.8.1",
 		"react-scripts": "5.0.1",

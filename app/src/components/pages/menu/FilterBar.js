@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import MenuBookRoundedIcon from "@mui/icons-material/MenuBookRounded";
 import FilterType from "./FilterType";
 import LocationCityIcon from "@mui/icons-material/LocationCity";

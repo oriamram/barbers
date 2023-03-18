@@ -22,9 +22,9 @@ export const newBusiness = async (req, res) => {
 };
 
 // return all the businesses
-export const allBusinesses = async (req, res) => {
+export const businesses = async (req, res) => {
 	try {
-		const businesses = await Business.find();
+		const businesses = await Business.find().skip(req.query.skip).limit(req.query.limit);
 		res.status(201).json(businesses);
 	} catch (e) {
 		res.status(500).json({ error: e.message });
@@ -35,8 +35,19 @@ export const allBusinesses = async (req, res) => {
 export const businessesByNames = async (req, res) => {
 	try {
 		const favorites = req.query.favorites;
-		const businesses = await Business.find({ name: { $in: favorites } });
+		const businesses = await Business.find({ name: { $in: favorites } })
+			.skip(req.query.skip)
+			.limit(req.query.limit);
 		res.status(201).send(businesses);
+	} catch (e) {
+		res.status(500).json({ error: e.message });
+	}
+};
+
+export const getCount = async (req, res) => {
+	try {
+		const count = await Business.countDocuments({});
+		res.status(200).send({ count });
 	} catch (e) {
 		res.status(500).json({ error: e.message });
 	}

@@ -1,9 +1,9 @@
-import axios from "axios";
+import api from "./axios";
 
 /* login func that loads the cookies to the client*/
 
 export default async (values, signIn) => {
-	const res = await axios.post("/auth/login", values);
+	const res = await api.post("/auth/login", values);
 	await signIn({
 		token: res.data.token,
 		expiresIn: 3600,

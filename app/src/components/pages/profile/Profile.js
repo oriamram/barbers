@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Avatar, Grid, CircularProgress, Typography, styled, Box } from "@mui/material";
 import { userDataContext } from "../../../App.js";
 import { get } from "../../../funcs/authorizedRequests.js";
 import { getAuthStateCookie } from "../../../funcs/getAuthCookies.js";
 import BusinessCard from "../../businessCard/BusinessCard.js";
+import SignOut from "../../auths/SignOut.js";
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
 	[theme.breakpoints.up("mobile")]: {
@@ -38,7 +39,6 @@ const Profile = ({ favorites }) => {
 			})();
 		}
 	}, []);
-	console.log(favorites[0]);
 	return (
 		<>
 			{userData ? (
@@ -56,7 +56,7 @@ const Profile = ({ favorites }) => {
 							sx={{
 								display: "flex",
 								width: {
-									mobile: "240px",
+									mobile: "255px",
 
 									lmobile: "300px",
 								},
@@ -72,9 +72,14 @@ const Profile = ({ favorites }) => {
 							))}
 						</Box>
 					</Grid>
+					<Grid item justifyContent="center" display="flex" mt={2}>
+						<SignOut />
+					</Grid>
 				</Grid>
 			) : (
-				<CircularProgress />
+				<div style={{ height: "calc(100vh - 48px)", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
+					<CircularProgress />
+				</div>
 			)}
 		</>
 	);

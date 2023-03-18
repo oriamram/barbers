@@ -12,10 +12,11 @@ const SignOut = () => {
 	const clickHandler = () => {
 		signOut();
 		navigate("/login");
+		window.location.reload();
 	};
 
 	return (
-		<Button variant="contained" color="error" size="small" onClick={clickHandler}>
+		<Button variant="contained" color="error" size="large" onClick={clickHandler}>
 			Sign Out
 		</Button>
 	);
